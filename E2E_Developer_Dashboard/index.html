@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#3B2F8F">
+  <title>E2E | Developer Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+      <a class="brand" href="#" aria-label="E2E home"><span class="brand-mark">E2E</span><span class="brand-caption">DIGITAL WORKSPACE</span></a>
+      <div class="workspace-label">WORKSPACE</div>
+      <nav class="nav-list">
+        <button class="nav-item active" data-view="dashboard"><span class="nav-icon">▦</span>Dashboard</button>
+        <button class="nav-item" data-view="tasks"><span class="nav-icon">☷</span>My Tasks <span class="nav-count" id="navTaskCount">5</span></button>
+        <button class="nav-item" data-view="projects"><span class="nav-icon">▧</span>Projects</button>
+        <button class="nav-item" data-view="deliverables"><span class="nav-icon">↥</span>Deliverables</button>
+        <button class="nav-item" data-view="messages"><span class="nav-icon">✉</span>Messages <span class="nav-dot" id="messageDot"></span></button>
+        <button class="nav-item" data-view="profile"><span class="nav-icon">◎</span>Profile</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="support-card"><div class="support-icon">?</div><strong>Need a hand?</strong><p>We're here to help you move forward.</p><button id="supportBtn">Contact Support <span>↗</span></button></div>
+        <div class="system-status"><span class="online-dot"></span><span><b>System Online</b><small>All systems operational</small></span><span class="status-check">✓</span></div>
+        <div class="sidebar-footer">© 2026 E2E Digital</div>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <button class="mobile-menu" id="mobileMenu" aria-label="Toggle navigation">☰</button>
+        <div class="breadcrumbs"><span>Workspace</span><span class="crumb-slash">/</span><strong id="breadcrumbCurrent">Dashboard</strong></div>
+        <div class="top-actions">
+          <label class="search-box"><span>⌕</span><input id="globalSearch" type="search" placeholder="Search tasks, projects..." aria-label="Search tasks and projects"><kbd>⌘ K</kbd></label>
+          <div class="notification-wrap"><button class="icon-button" id="notificationBtn" aria-label="Notifications">♧<span class="notification-badge" id="notificationBadge">3</span></button><div class="notification-popover hidden" id="notificationPopover"><div class="popover-heading"><strong>Notifications</strong><button id="markReadBtn">Mark all read</button></div><div id="notificationList"></div></div></div>
+          <div class="top-profile"><div class="avatar" id="topAvatar">PG</div><div><strong id="topName">Prem Kumar</strong><small>Developer</small></div><button class="chevron" data-view="profile" aria-label="Open profile">⌄</button></div>
+        </div>
+      </header>
+
+      <section class="page-content">
+        <div class="page-heading">
+          <div><div class="eyebrow" id="todayLabel">THURSDAY, OCTOBER 29, 2026</div><h1 id="pageTitle">Good afternoon, Prem <span class="wave">✦</span></h1><p id="pageSubtitle">Here's what's happening with your work today.</p></div>
+          <div class="heading-actions"><button class="button button-light" id="exportBtn">↓ Export report</button><button class="button button-primary" id="viewTasksBtn">View my tasks <span>→</span></button></div>
+        </div>
+
+        <div id="view-dashboard" class="view active-view">
+          <div class="notice-banner"><div class="notice-symbol">!</div><div><strong>Heads up! You have tasks due soon.</strong><p>Keep your projects moving. Review upcoming deadlines and plan your next steps.</p></div><button data-view="tasks" class="notice-link">Review tasks <span>→</span></button><button class="dismiss-notice" id="dismissNotice" aria-label="Dismiss notice">×</button></div>
+          <div class="section-heading"><div><h2>Your overview</h2><p>A quick look at your workload</p></div><span class="period-pill"><span class="tiny-dot"></span> This week</span></div>
+          <div class="stats-grid">
+            <article class="stat-card"><div class="stat-top"><span>Assigned Tasks</span><span class="stat-icon purple">☷</span></div><div class="stat-value" id="assignedStat">5</div><div class="stat-foot"><span class="mini-pill neutral">All tasks</span><span class="muted">assigned to you</span></div><div class="stat-accent purple-accent"></div></article>
+            <article class="stat-card"><div class="stat-top"><span>In Progress</span><span class="stat-icon orange">◷</span></div><div class="stat-value" id="progressStat">2</div><div class="stat-foot"><span class="mini-pill orange-pill">Active</span><span class="muted">currently working</span></div><div class="stat-accent orange-accent"></div></article>
+            <article class="stat-card"><div class="stat-top"><span>In Review</span><span class="stat-icon blue">◉</span></div><div class="stat-value" id="reviewStat">1</div><div class="stat-foot"><span class="mini-pill blue-pill">Submitted</span><span class="muted">awaiting feedback</span></div><div class="stat-accent blue-accent"></div></article>
+            <article class="stat-card"><div class="stat-top"><span>Completed</span><span class="stat-icon green">✓</span></div><div class="stat-value" id="completedStat">3</div><div class="stat-foot"><span class="mini-pill green-pill">Approved</span><span class="muted">successfully finished</span></div><div class="stat-accent green-accent"></div></article>
+          </div>
+          <div class="dashboard-grid">
+            <section class="panel task-panel"><div class="panel-heading"><div><h2>My Tasks</h2><p>Stay on top of your priorities</p></div><button class="text-button" data-view="tasks">View all <span>→</span></button></div>
+              <div class="table-wrap"><table><thead><tr><th>TASK NAME</th><th>PROJECT</th><th>PRIORITY</th><th>DUE DATE</th><th>STATUS</th><th></th></tr></thead><tbody id="dashboardTaskRows"></tbody></table></div>
+              <div class="panel-bottom"><span id="taskTableCount">Showing your assigned tasks</span><button class="text-button" data-view="tasks">All tasks <span>→</span></button></div>
+            </section>
+            <section class="panel project-panel"><div class="panel-heading"><div><h2>Current Project</h2><p>Your main focus right now</p></div><span class="live-tag"><span></span> Active</span></div>
+              <div class="project-hero"><div class="project-logo">A</div><div><h3 id="currentProjectName">Atlas Client Portal</h3><p id="currentProjectCode">E2E · PRJ-024</p></div></div>
+              <p class="project-description" id="currentProjectDescription">Building a streamlined client portal for project updates and collaboration.</p>
+              <div class="progress-label"><span>Overall progress</span><strong id="projectProgressText">68%</strong></div><div class="progress-track"><span id="projectProgressBar" style="width:68%"></span></div>
+              <div class="project-meta"><div><small>YOUR ROLE</small><strong>Frontend Developer</strong></div><div><small>DUE DATE</small><strong id="currentProjectDue">Nov 12, 2026</strong></div></div>
+              <button class="button button-outline full-width" id="projectDetailsBtn">View project details <span>→</span></button>
+            </section>
+            <section class="panel quick-stats"><div class="panel-heading"><div><h2>Quick Stats</h2><p>Your task activity at a glance</p></div><span class="chart-period">This month⌄</span></div><div class="chart-summary"><div><strong id="chartDone">3</strong><small>Tasks approved</small></div><div class="chart-legend"><span><i class="legend-purple"></i>Approved</span><span><i class="legend-orange"></i>In progress</span></div></div><div class="bar-chart" id="barChart" aria-label="Weekly task activity chart"></div><div class="chart-footer"><span><i class="legend-purple"></i> Task activity by week</span><strong id="chartCompletion">60% completion</strong></div></section>
+            <section class="panel focus-panel"><div class="panel-heading"><div><h2>Up next</h2><p>Your next best action</p></div><span class="sparkle">✦</span></div><div id="nextTaskContent"></div><button class="button button-light full-width" data-view="tasks">Open task list <span>→</span></button></section>
+          </div>
+        </div>
+
+        <div id="view-tasks" class="view">
+          <div class="section-heading"><div><h2>My Tasks</h2><p>Manage your assigned work from start to review.</p></div><span class="period-pill" id="taskCountPill">5 tasks</span></div>
+          <div class="filter-panel"><label class="filter-field">Search tasks<input id="taskSearch" type="search" placeholder="Find a task..."></label><label class="filter-field">Project<select id="projectFilter"><option value="">All projects</option></select></label><label class="filter-field">Priority<select id="priorityFilter"><option value="">All priorities</option><option>High</option><option>Medium</option><option>Low</option></select></label><label class="filter-field">Due date<select id="dueFilter"><option value="">Any date</option><option value="overdue">Overdue</option><option value="week">Next 7 days</option><option value="later">Later</option></select></label><label class="filter-field">Status<select id="statusFilter"><option value="">All statuses</option><option>Pending</option><option>Assigned</option><option>In Progress</option><option>Submitted for Review</option><option>Revision Required</option><option>Approved</option></select></label><button class="button button-light clear-filters" id="clearFilters">Reset</button></div>
+          <section class="panel"><div class="panel-heading"><div><h2>Assigned to me</h2><p>Only tasks assigned to your demo account are shown.</p></div></div><div class="table-wrap"><table><thead><tr><th>TASK NAME</th><th>PROJECT</th><th>PRIORITY</th><th>DUE DATE</th><th>STATUS</th><th>ACTION</th></tr></thead><tbody id="allTaskRows"></tbody></table></div><div class="empty-state hidden" id="emptyTasks">No tasks match these filters. Try adjusting your search.</div></section>
+        </div>
+
+        <div id="view-projects" class="view">
+          <div class="section-heading"><div><h2>My Projects</h2><p>Project spaces you have been assigned to.</p></div><span class="period-pill" id="projectCountPill">2 projects</span></div><div class="project-grid" id="projectGrid"></div>
+        </div>
+
+        <div id="view-deliverables" class="view">
+          <div class="section-heading"><div><h2>Deliverables</h2><p>Share completed work with your Team Lead for review.</p></div><button class="button button-primary" id="newDeliverableBtn">＋ New submission</button></div>
+          <div class="info-banner"><span>ⓘ</span><p><strong>Demo file references only.</strong> This prototype stores text and links in your browser. Real file storage, malware scanning, access control, and secure uploads require a backend.</p></div>
+          <div class="deliverable-layout"><section class="panel"><div class="panel-heading"><div><h2>Submit a deliverable</h2><p>Attach a reference and describe what is ready.</p></div></div><form id="deliverableForm" class="form-grid"><label>Related task<select id="deliverableTask" required></select></label><label>Deliverable title<input id="deliverableTitle" required maxlength="100" placeholder="e.g. Responsive dashboard UI"></label><label>Demo file reference<input id="deliverableFile" maxlength="180" placeholder="e.g. dashboard-v2.zip (reference only)"></label><label>Link to completed work<input id="deliverableLink" type="url" placeholder="https://..." maxlength="500"></label><label class="full-span">Description<textarea id="deliverableDescription" rows="3" required maxlength="1000" placeholder="What does this deliverable include?"></textarea></label><label class="full-span">Submission notes<textarea id="deliverableNotes" rows="2" maxlength="1000" placeholder="Anything your Team Lead should know?"></textarea></label><div class="full-span form-actions"><button type="reset" class="button button-light">Clear</button><button type="submit" class="button button-primary">Send for review ↗</button></div></form></section><section class="panel"><div class="panel-heading"><div><h2>Submission history</h2><p>Your recent deliverables</p></div></div><div id="deliverableHistory" class="stack-list"></div></section></div>
+        </div>
+
+        <div id="view-messages" class="view">
+          <div class="section-heading"><div><h2>Messages</h2><p>Project conversations with your Team Lead.</p></div><span class="period-pill">Demo workspace</span></div>
+          <section class="panel messages-panel"><aside class="conversation-list"><div class="conversation-title">PROJECT CHATS</div><div id="conversationList"></div></aside><section class="chat-area"><div class="chat-header" id="chatHeader"><div class="avatar lead-avatar">AK</div><div><strong>Arun Kumar</strong><small>Team Lead · Atlas Client Portal</small></div><span class="online-dot"></span></div><div class="chat-messages" id="chatMessages" aria-live="polite"></div><form id="messageForm" class="chat-compose"><label class="sr-only" for="messageInput">Write a message</label><input id="messageInput" maxlength="1500" placeholder="Write a message..." required><button class="button button-primary" type="submit" aria-label="Send message">Send ↗</button></form></section></section>
+        </div>
+
+        <div id="view-profile" class="view">
+          <div class="section-heading"><div><h2>My Profile</h2><p>Manage your developer details and preferences.</p></div><span class="period-pill">Developer account</span></div>
+          <div class="profile-layout"><section class="panel profile-card"><div class="profile-cover"></div><div class="profile-identity"><div class="profile-avatar" id="profileAvatar">PG</div><h2 id="profileDisplayName">Prem Kumar</h2><p>Developer · E2E Digital</p><span class="live-tag"><span></span> Active member</span></div><div class="profile-details"><div><small>ASSIGNED ROLE</small><strong>Developer</strong></div><div><small>WORKSPACE</small><strong>E2E Digital</strong></div><div><small>ACCESS LEVEL</small><strong>Assigned projects only</strong></div></div></section><section class="panel"><div class="panel-heading"><div><h2>Personal information</h2><p>Changes are saved locally in this demo.</p></div></div><form id="profileForm" class="form-grid"><label>Full name<input id="profileName" required maxlength="80"></label><label>Email address<input id="profileEmail" type="email" required maxlength="120"></label><label>Role<input value="Developer" disabled></label><label>Team Lead<input value="Arun Kumar" disabled></label><div class="full-span preference-box"><div><strong>Notification preferences</strong><p>Choose which demo alerts you want to see.</p></div><label class="check-row"><input id="prefAssignments" type="checkbox"> New task assignments</label><label class="check-row"><input id="prefDeadlines" type="checkbox"> Upcoming deadlines</label><label class="check-row"><input id="prefReviews" type="checkbox"> Review updates and revisions</label><label class="check-row"><input id="prefMessages" type="checkbox"> New messages</label></div><div class="full-span form-actions"><span class="save-message" id="profileSaveMessage" role="status"></span><button class="button button-primary" type="submit">Save changes</button></div></form></section></div>
+        </div>
+        <footer class="page-footer"><span>© 2026 E2E Digital · Developer workspace</span><span><i class="online-dot"></i> All changes saved locally</span></footer>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop hidden" id="taskModal" role="dialog" aria-modal="true" aria-labelledby="taskModalTitle"><section class="modal task-modal"><div class="modal-header"><div><span class="eyebrow" id="taskModalId">TASK DETAILS</span><h2 id="taskModalTitle">Task title</h2></div><button class="modal-close" data-close-modal aria-label="Close task details">×</button></div><div id="taskModalBody"></div></section></div>
+  <div class="toast-region" id="toastRegion" aria-live="polite" aria-atomic="true"></div>
+  <script src="app.js"></script>
+</body>
+</html>
