@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E2E | Team Lead Dashboard</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+
+    <aside class="sidebar" id="sidebar">
+        <div class="logo">E<span>2</span>E.</div>
+        <div class="role">TEAM LEAD WORKSPACE</div>
+
+        <nav>
+            <div class="nav-item active" data-page="dashboard">▦ Dashboard</div>
+            <div class="nav-item" data-page="projects">▣ My Projects</div>
+            <div class="nav-item" data-page="tasks">☑ Tasks</div>
+            <div class="nav-item" data-page="team">♙ Team Members</div>
+            <div class="nav-item" data-page="requests">▤ Requests</div>
+            <div class="nav-item" data-page="quotations">▧ Quotations</div>
+            <div class="nav-item" data-page="reports">▥ Reports</div>
+            <div class="nav-item" data-page="messages">✉ Messages</div>
+        </nav>  
+
+        <div class="sidebar-bottom">
+            <div class="nav-item" data-page="profile">⚙ My Profile</div>
+            <div class="nav-item" onclick="showHelpSupport()">? Help & Support</div>
+        </div>
+    </aside>
+
+    <main class="main">
+
+        <header class="topbar">
+            <button class="mobile-menu" onclick="toggleSidebar()">☰</button>
+
+            <input type="search" class="search" id="globalSearch"
+                   placeholder="Search tasks..." oninput="globalSearch()">
+
+            <div class="top-actions">
+                <div class="notification" id="notificationBell" onclick="showNotifications()">♧</div>
+                <div class="profile">
+                    <div class="avatar">TL</div>
+                    <div class="profile-info">
+                        <strong>Team Lead</strong>
+                        <small>Technical Department</small>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="content">
+
+            <section class="page active" id="dashboard">
+                <div class="page-header">
+                    <div>
+                        <h1>Welcome back, Team Lead!</h1>
+                        <p>Here's what's happening with your team today.</p>
+                    </div>
+                    <button class="primary-btn" onclick="openTaskModal()">+ Create Task</button>
+                </div>
+
+                <div class="stats">
+                    <div class="card">
+                        <div class="stat-label">ACTIVE PROJECTS</div>
+                        <div class="stat-number" id="activeProjects">0</div>
+                        <div class="stat-note">Currently assigned</div>
+                    </div>
+                    <div class="card">
+                        <div class="stat-label">TOTAL TASKS</div>
+                        <div class="stat-number" id="totalTasks">0</div>
+                        <div class="stat-note">Across all projects</div>
+                    </div>
+                    <div class="card">
+                        <div class="stat-label">PENDING REVIEWS</div>
+                        <div class="stat-number" id="pendingReviews">0</div>
+                        <div class="stat-note">Needs your attention</div>
+                    </div>
+                    <div class="card">
+                        <div class="stat-label">APPROVED TASKS</div>
+                        <div class="stat-number" id="approvedTasks">0</div>
+                        <div class="stat-note">Successfully completed</div>
+                    </div>
+                </div>
+
+                <div class="grid">
+                    <div class="card">
+                        <h3 class="section-title">Project Overview</h3>
+                        <div id="dashboardProjects"></div>
+                    </div>
+                    <div class="card">
+                        <h3 class="section-title">Team Workload</h3>
+                        <div id="dashboardTeam"></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 class="section-title">Recent Task Activities</h3>
+                    <div id="recentActivities"></div>
+                </div>
+            </section>
+
+            <section class="page" id="projects">
+                <div class="page-header">
+                    <div>
+                        <h1>My Projects</h1>
+                        <p>Manage assigned projects and monitor progress.</p>
+                    </div>
+                    <button class="primary-btn" onclick="openProjectModal()">+ Add Project</button>
+                </div>
+                <div class="grid" id="projectList"></div>
+            </section>
+
+            <section class="page" id="tasks">
+                <div class="page-header">
+                    <div>
+                        <h1>Task Management</h1>
+                        <p>Assign tasks, track progress and review submissions.</p>
+                    </div>
+                    <button class="primary-btn" onclick="openTaskModal()">+ Create Task</button>
+                </div>
+
+                <div class="table-card">
+                    <div class="table-tools">
+                        <input type="search" id="taskSearch" placeholder="Search tasks..." oninput="renderTasks()">
+                        <select id="taskFilter" onchange="renderTasks()">
+                            <option value="All">All Statuses</option>
+                            <option>Pending</option>
+                            <option>Assigned</option>
+                            <option>In Progress</option>
+                            <option>Submitted for Review</option>
+                            <option>Revision Required</option>
+                            <option>Approved</option>
+                        </select>
+                    </div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>TASK</th>
+                                <th>PROJECT</th>
+                                <th>ASSIGNED TO</th>
+                                <th>DEADLINE</th>
+                                <th>STATUS</th>
+                                <th>ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody id="taskTable"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="page" id="team">
+                <div class="page-header">
+                    <div>
+                        <h1>Team Members</h1>
+                        <p>Monitor developers and distribute workload.</p>
+                    </div>
+                    <button class="primary-btn" onclick="openMemberModal()">+ Add Member</button>
+                </div>
+
+                <div class="table-card">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>EMPLOYEE</th>
+                                <th>ROLE</th>
+                                <th>ACTIVE TASKS</th>
+                                <th>APPROVED TASKS</th>
+                                <th>STATUS</th>
+                            </tr>
+                        </thead>
+                        <tbody id="teamTable"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="page" id="requests">
+                <div class="page-header">
+                    <div>
+                        <h1>Client Requests</h1>
+                        <p>Review and manage project requirements.</p>
+                    </div>
+                </div>
+                <div class="table-card">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>REQUEST ID</th>
+                                <th>CLIENT</th>
+                                <th>REQUIREMENT</th>
+                                <th>DATE</th>
+                                <th>STATUS</th>
+                            </tr>
+                        </thead>
+                        <tbody id="requestTable"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="page" id="quotations">
+                <div class="page-header">
+                    <div>
+                        <h1>Quotations</h1>
+                        <p>View quotations and approval status.</p>
+                    </div>
+                </div>
+                <div class="table-card">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>QUOTATION ID</th>
+                                <th>PROJECT</th>
+                                <th>AMOUNT</th>
+                                <th>SUBMITTED DATE</th>
+                                <th>STATUS</th>
+                            </tr>
+                        </thead>
+                        <tbody id="quotationTable"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="page" id="reports">
+                <div class="page-header">
+                    <div>
+                        <h1>Reports & Analytics</h1>
+                        <p>Understand team performance and task completion.</p>
+                    </div>
+                </div>
+
+                <div class="stats">
+                    <div class="card"><div class="stat-label">TOTAL TASKS</div><div class="stat-number" id="reportTotal">0</div></div>
+                    <div class="card"><div class="stat-label">APPROVED</div><div class="stat-number" id="reportApproved">0</div></div>
+                    <div class="card"><div class="stat-label">IN PROGRESS</div><div class="stat-number" id="reportProgress">0</div></div>
+                    <div class="card"><div class="stat-label">REQUIRES REVIEW</div><div class="stat-number" id="reportReview">0</div></div>
+                </div>
+
+                <div class="card">
+                    <h3 class="section-title">Task Completion Overview</h3>
+                    <div id="reportBars"></div>
+                    <button class="primary-btn" onclick="exportReport()">Download CSV Report</button>
+                </div>
+            </section>
+
+            <section class="page" id="messages">
+                <div class="page-header">
+                    <div>
+                        <h1>Messages</h1>
+                        <p>Team communication and project updates.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div id="messageList"></div>
+                    <div class="form-group">
+                        <textarea id="messageInput" placeholder="Write a message..."></textarea>
+                    </div>
+                    <button class="primary-btn" onclick="sendMessage()">Send Message</button>
+                </div>
+            </section>
+
+            <section class="page" id="profile">
+                <div class="page-header">
+                    <div>
+                        <h1>My Profile</h1>
+                        <p>Manage your account information.</p>
+                    </div>
+                </div>
+                <div class="card profile-form">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input id="profileName" value="Team Lead">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input id="profileEmail" value="teamlead@e2e.example">
+                    </div>
+                    <div class="form-group">
+                        <label>Department</label>
+                        <input id="profileDepartment" value="Technical Department">
+                    </div>
+                    <button class="primary-btn" onclick="saveProfile()">Save Changes</button>
+                </div>
+            </section>
+
+        </div>
+    </main>
+</div>
+
+<div class="modal" id="taskModal">
+    <div class="modal-box">
+        <h2>Create New Task</h2>
+        <form id="taskForm">
+            <div class="form-group">
+                <label>Task Title</label>
+                <input id="taskTitle" required>
+            </div>
+            <div class="form-group">
+                <label>Project</label>
+                <select id="taskProject"></select>
+            </div>
+            <div class="form-group">
+                <label>Assign Developer</label>
+                <select id="taskDeveloper"></select>
+            </div>
+            <div class="form-group">
+                <label>Deadline</label>
+                <input type="date" id="taskDeadline" required>
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea id="taskDescription"></textarea>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="secondary-btn" onclick="closeModal('taskModal')">Cancel</button>
+                <button class="primary-btn">Create Task</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal" id="projectModal">
+    <div class="modal-box">
+        <h2>Add Project</h2>
+        <form id="projectForm">
+            <div class="form-group">
+                <label>Project Name</label>
+                <input id="projectName" required>
+            </div>
+            <div class="form-group">
+                <label>Client Name</label>
+                <input id="projectClient" required>
+            </div>
+            <div class="form-group">
+                <label>Deadline</label>
+                <input type="date" id="projectDeadline">
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="secondary-btn" onclick="closeModal('projectModal')">Cancel</button>
+                <button class="primary-btn">Add Project</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal" id="memberModal">
+    <div class="modal-box">
+        <h2>Add Team Member</h2>
+        <form id="memberForm">
+            <div class="form-group">
+                <label>Employee Name</label>
+                <input id="memberName" required>
+            </div>
+            <div class="form-group">
+                <label>Role</label>
+                <input id="memberRole" required>
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="memberEmail" required>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="secondary-btn" onclick="closeModal('memberModal')">Cancel</button>
+                <button class="primary-btn">Add Member</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal" id="reviewModal">
+    <div class="modal-box">
+        <h2>Review Task Submission</h2>
+        <p id="reviewTaskName"></p>
+        <div class="form-group">
+            <label>Review Comments</label>
+            <textarea id="reviewComment" placeholder="Enter feedback..."></textarea>
+        </div>
+        <div class="modal-actions">
+            <button class="danger-btn" onclick="reviewTask('Revision Required')">Request Revision</button>
+            <button class="primary-btn" onclick="submitReview('Approved')">Approve Task</button>
+        </div>
+        <button class="secondary-btn cancel-full" onclick="closeModal('reviewModal')">Cancel</button>
+    </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
