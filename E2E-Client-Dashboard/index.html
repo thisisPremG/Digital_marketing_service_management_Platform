@@ -1,66 +1,66 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#3B2F8F">
-  <title>E2E Client Portal</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <section class="auth-screen" id="authScreen" aria-labelledby="authTitle">
-    <div class="auth-brand"><span class="brand-mark">E2</span><span><strong>E2E</strong><small>CLIENT PORTAL</small></span></div>
-    <div class="auth-layout">
-      <div class="auth-promo"><p class="eyebrow">YOUR PROJECT, IN ONE PLACE</p><h1>Great work starts with a clear connection.</h1><p>Sign in to follow project progress, review quotations, manage invoices, and talk with your project team.</p><div class="auth-points"><span>✓ Track requests and milestones</span><span>✓ Review quotes and deliverables</span><span>✓ Keep project conversations together</span></div><div class="auth-orbit orbit-one"></div><div class="auth-orbit orbit-two"></div></div>
-      <div class="auth-card"><div class="auth-tabs"><button type="button" class="auth-tab active" data-auth-mode="login">Log in</button><button type="button" class="auth-tab" data-auth-mode="signup">Sign up</button></div>
-        <p class="eyebrow">WELCOME TO E2E</p><h2 id="authTitle">Log in to your account</h2><p class="auth-subtitle" id="authSubtitle">Enter your details to continue to your client portal.</p>
-        <form id="authForm" novalidate><div class="field" id="authNameField" hidden><label for="authName">Full name <span class="required">*</span></label><input id="authName" name="name" autocomplete="name" placeholder="Your full name"><small class="field-error"></small></div><div class="field"><label for="authEmail">Email address <span class="required">*</span></label><input id="authEmail" name="email" type="email" autocomplete="email" placeholder="you@company.com" required><small class="field-error"></small></div><div class="field"><label for="authPassword">Password <span class="required">*</span></label><input id="authPassword" name="password" type="password" autocomplete="current-password" placeholder="At least 6 characters" minlength="6" required><small class="field-error"></small></div><p class="auth-error" id="authError" role="alert"></p><button class="btn btn-primary auth-submit" id="authSubmit" type="submit">Log in <span>→</span></button></form>
-        <p class="auth-switch" id="authSwitchText">New to E2E? <button type="button" data-auth-mode="signup">Create an account</button></p><p class="auth-demo-note"><strong>Demo authentication</strong><br>Accounts are stored only in this browser. Do not use a real or reused password.</p>
-      </div>
-    </div><p class="auth-footer">© 2026 E2E Technologies <span>·</span> Secure client experience preview</p>
-  </section>
-  <div class="app-shell" id="appShell">
-    <aside class="sidebar" id="sidebar" aria-label="Main navigation">
-      <a class="brand" href="#" data-page="dashboard" aria-label="E2E Client Portal home"><span class="brand-mark">E2</span><span><strong>E2E</strong><small>CLIENT PORTAL</small></span></a>
-      <button class="mobile-close" id="closeSidebar" aria-label="Close navigation">×</button>
-      <button class="new-request side-new" data-action="new-request"><span>＋</span> New Request</button>
-      <p class="nav-label">WORKSPACE</p>
-      <nav class="nav-list">
-        <button class="nav-item active" data-page="dashboard"><span class="nav-icon">⌂</span>Dashboard</button>
-        <button class="nav-item" data-page="requests"><span class="nav-icon">▤</span>My Requests <span class="nav-count">3</span></button>
-        <button class="nav-item" data-page="quotations"><span class="nav-icon">▧</span>Quotations <span class="nav-count">1</span></button>
-        <button class="nav-item" data-page="payments"><span class="nav-icon">₹</span>Payments</button>
-        <button class="nav-item" data-page="invoices"><span class="nav-icon">▣</span>Invoices</button>
-        <button class="nav-item" data-page="deliverables"><span class="nav-icon">◇</span>Deliverables <span class="nav-count">1</span></button>
-        <button class="nav-item" data-page="messages"><span class="nav-icon">✉</span>Messages <span class="nav-count coral-count">2</span></button>
-      </nav>
-      <p class="nav-label profile-label">ACCOUNT</p>
-      <nav class="nav-list"><button class="nav-item" data-page="profile"><span class="nav-icon">◎</span>Profile</button></nav>
-      <div class="sidebar-bottom">
-        <div class="support-card"><span class="support-icon">?</span><strong>Need a hand?</strong><p>Our team is here to help with your project.</p><button data-action="support">Contact support <span>↗</span></button></div>
-        <div class="system-status"><span class="status-dot"></span><span>All systems operational</span></div>
-      </div>
-    </aside>
-    <div class="mobile-scrim" id="scrim"></div>
-    <main class="main-area">
-      <header class="topbar">
-        <button class="menu-toggle" id="menuToggle" aria-label="Open navigation">☰</button>
-        <div class="crumb"><span>Client portal</span><span class="crumb-sep">/</span><strong id="topTitle">Dashboard</strong></div>
-        <div class="top-actions">
-          <label class="global-search"><span>⌕</span><input id="globalSearch" type="search" placeholder="Search requests..." aria-label="Search requests and projects"><kbd>⌘ K</kbd></label>
-          <div class="notification-wrap"><button class="icon-button" id="notificationButton" aria-label="Notifications">♧<i></i></button><div class="notification-panel hidden" id="notificationPanel"><strong>Notifications</strong><p><b>Quotation received</b><small>Review QUO-002 when you have a moment.</small></p><p><b>Deliverable ready</b><small>Your landing page is waiting for review.</small></p><button class="text-button" data-page="quotations">View quotations</button></div></div>
-          <button class="user-menu" data-page="profile"><span class="avatar">RS</span><span class="user-copy"><strong id="topUserName">Rahul Sharma</strong><small>Client Account</small></span><span class="chevron">⌄</span></button><button class="btn btn-small auth-logout" id="logoutButton" type="button">Log out</button>
+  <!doctype html>
+  <html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#3B2F8F">
+    <title>E2E Client Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <section class="auth-screen" id="authScreen" aria-labelledby="authTitle">
+      <div class="auth-brand"><span class="brand-mark">E2</span><span><strong>E2E</strong><small>CLIENT PORTAL</small></span></div>
+      <div class="auth-layout">
+        <div class="auth-promo"><p class="eyebrow">YOUR PROJECT, IN ONE PLACE</p><h1>Great work starts with a clear connection.</h1><p>Sign in to follow project progress, review quotations, manage invoices, and talk with your project team.</p><div class="auth-points"><span>✓ Track requests and milestones</span><span>✓ Review quotes and deliverables</span><span>✓ Keep project conversations together</span></div><div class="auth-orbit orbit-one"></div><div class="auth-orbit orbit-two"></div></div>
+        <div class="auth-card"><div class="auth-tabs"><button type="button" class="auth-tab active" data-auth-mode="login">Log in</button><button type="button" class="auth-tab" data-auth-mode="signup">Sign up</button></div>
+          <p class="eyebrow">WELCOME TO E2E</p><h2 id="authTitle">Log in to your account</h2><p class="auth-subtitle" id="authSubtitle">Enter your details to continue to your client portal.</p>
+          <form id="authForm" novalidate><div class="field" id="authNameField" hidden><label for="authName">Full name <span class="required">*</span></label><input id="authName" name="name" autocomplete="name" placeholder="Your full name"><small class="field-error"></small></div><div class="field"><label for="authEmail">Email address <span class="required">*</span></label><input id="authEmail" name="email" type="email" autocomplete="email" placeholder="you@company.com" required><small class="field-error"></small></div><div class="field"><label for="authPassword">Password <span class="required">*</span></label><input id="authPassword" name="password" type="password" autocomplete="current-password" placeholder="At least 6 characters" minlength="6" required><small class="field-error"></small></div><p class="auth-error" id="authError" role="alert"></p><button class="btn btn-primary auth-submit" id="authSubmit" type="submit">Log in <span>→</span></button></form>
+          <p class="auth-switch" id="authSwitchText">New to E2E? <button type="button" data-auth-mode="signup">Create an account</button></p><p class="auth-demo-note"><strong>Demo authentication</strong><br>Accounts are stored only in this browser. Do not use a real or reused password.</p>
         </div>
-      </header>
-      <section class="page-content" id="pageContent" aria-live="polite"></section>
-      <footer class="footer"><span>© 2025 E2E Technologies</span><span><span class="status-dot"></span> Demo environment <span class="footer-sep">·</span> <a href="#" data-action="support">Help & support</a></span></footer>
-    </main>
-  </div>
-  <div class="modal-backdrop hidden" id="modalBackdrop" role="presentation"><section class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-head"><div><p class="eyebrow">E2E CLIENT PORTAL</p><h2 id="modalTitle">Modal title</h2></div><button class="modal-close" id="modalClose" aria-label="Close dialog">×</button></div><div id="modalBody"></div></section></div>
-  <div class="toast-region" id="toastRegion" aria-live="polite" aria-atomic="true"></div>
-  <script src="app.js"></script>
-</body>
-</html>
+      </div><p class="auth-footer">© 2026 E2E Technologies <span>·</span> Secure client experience preview</p>
+    </section>
+    <div class="app-shell" id="appShell">
+      <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+        <a class="brand" href="#" data-page="dashboard" aria-label="E2E Client Portal home"><span class="brand-mark">E2</span><span><strong>E2E</strong><small>CLIENT PORTAL</small></span></a>
+        <button class="mobile-close" id="closeSidebar" aria-label="Close navigation">×</button>
+        <button class="new-request side-new" data-action="new-request"><span>＋</span> New Request</button>
+        <p class="nav-label">WORKSPACE</p>
+        <nav class="nav-list">
+          <button class="nav-item active" data-page="dashboard"><span class="nav-icon">⌂</span>Dashboard</button>
+          <button class="nav-item" data-page="requests"><span class="nav-icon">▤</span>My Requests <span class="nav-count">3</span></button>
+          <button class="nav-item" data-page="quotations"><span class="nav-icon">▧</span>Quotations <span class="nav-count">1</span></button>
+          <button class="nav-item" data-page="payments"><span class="nav-icon">₹</span>Payments</button>
+          <button class="nav-item" data-page="invoices"><span class="nav-icon">▣</span>Invoices</button>
+          <button class="nav-item" data-page="deliverables"><span class="nav-icon">◇</span>Deliverables <span class="nav-count">1</span></button>
+          <button class="nav-item" data-page="messages"><span class="nav-icon">✉</span>Messages <span class="nav-count coral-count">2</span></button>
+        </nav>
+        <p class="nav-label profile-label">ACCOUNT</p>
+        <nav class="nav-list"><button class="nav-item" data-page="profile"><span class="nav-icon">◎</span>Profile</button></nav>
+        <div class="sidebar-bottom">
+          <div class="support-card"><span class="support-icon">?</span><strong>Need a hand?</strong><p>Our team is here to help with your project.</p><button data-action="support">Contact support <span>↗</span></button></div>
+          <div class="system-status"><span class="status-dot"></span><span>All systems operational</span></div>
+        </div>
+      </aside>
+      <div class="mobile-scrim" id="scrim"></div>
+      <main class="main-area">
+        <header class="topbar">
+          <button class="menu-toggle" id="menuToggle" aria-label="Open navigation">☰</button>
+          <div class="crumb"><span>Client portal</span><span class="crumb-sep">/</span><strong id="topTitle">Dashboard</strong></div>
+          <div class="top-actions">
+            <label class="global-search"><span>⌕</span><input id="globalSearch" type="search" placeholder="Search requests..." aria-label="Search requests and projects"><kbd>⌘ K</kbd></label>
+            <div class="notification-wrap"><button class="icon-button" id="notificationButton" aria-label="Notifications">♧<i></i></button><div class="notification-panel hidden" id="notificationPanel"><strong>Notifications</strong><p><b>Quotation received</b><small>Review QUO-002 when you have a moment.</small></p><p><b>Deliverable ready</b><small>Your landing page is waiting for review.</small></p><button class="text-button" data-page="quotations">View quotations</button></div></div>
+            <button class="user-menu" data-page="profile"><span class="avatar">RS</span><span class="user-copy"><strong id="topUserName">Rahul Sharma</strong><small>Client Account</small></span><span class="chevron">⌄</span></button><button class="btn btn-small auth-logout" id="logoutButton" type="button">Log out</button>
+          </div>
+        </header>
+        <section class="page-content" id="pageContent" aria-live="polite"></section>
+        <footer class="footer"><span>© 2025 E2E Technologies</span><span><span class="status-dot"></span> Demo environment <span class="footer-sep">·</span> <a href="#" data-action="support">Help & support</a></span></footer>
+      </main>
+    </div>
+    <div class="modal-backdrop hidden" id="modalBackdrop" role="presentation"><section class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-head"><div><p class="eyebrow">E2E CLIENT PORTAL</p><h2 id="modalTitle">Modal title</h2></div><button class="modal-close" id="modalClose" aria-label="Close dialog">×</button></div><div id="modalBody"></div></section></div>
+    <div class="toast-region" id="toastRegion" aria-live="polite" aria-atomic="true"></div>
+    <script src="app.js"></script>
+  </body>
+  </html>
