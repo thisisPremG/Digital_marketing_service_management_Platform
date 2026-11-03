@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E2E Platform</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f4fb;
+            color: #1b1740;
+        }
+
+        header {
+            background: #3b2f8f;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .dashboard-card {
+            background: white;
+            padding: 30px;
+            border-radius: 14px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(42, 31, 101, 0.08);
+        }
+
+        .dashboard-card h2 {
+            margin-bottom: 12px;
+        }
+
+        .dashboard-card p {
+            color: #77758f;
+            line-height: 1.6;
+        }
+
+        .dashboard-card a {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 12px 22px;
+            background: #ff6b5b;
+            color: white;
+            text-decoration: none;
+            border-radius: 7px;
+            font-weight: bold;
+        }
+
+        .dashboard-card a:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>E2E Platform</h1>
+    <p>Service Management Platform</p>
+</header>
+
+<main class="container">
+    <h2>Select Your Dashboard</h2>
+
+    <div class="dashboard-grid">
+
+        <div class="dashboard-card">
+            <h2>Client Dashboard</h2>
+            <p>Submit requirements, track projects and manage payments.</p>
+            <a href="./E2E-Client-Dashboard/index.html">Open Dashboard</a>
+        </div>
+
+        <div class="dashboard-card">
+            <h2>Employee Dashboard</h2>
+            <p>Manage assigned tasks, projects and deliverables.</p>
+            <a href="./E2E_Developer_Dashboard/index.html">Open Dashboard</a>
+        </div>
+
+        <div class="dashboard-card">
+            <h2>Team Lead Dashboard</h2>
+            <p>Manage team tasks, monitor progress and review work.</p>
+            <a href="./E2E-TeamLead-Dashboard/index.html">Open Dashboard</a>
+        </div>
+
+    </div>
+</main>
+
+</body>
+</html>
