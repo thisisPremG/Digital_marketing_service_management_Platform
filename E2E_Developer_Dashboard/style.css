@@ -1995,3 +1995,104 @@ tbody tr:hover {
     transition: none !important;
   }
 }
+
+/* =========================================
+   EMPLOYEE DASHBOARD - CLIENT THEME MATCH
+========================================= */
+
+/* Match client dashboard colours */
+:root {
+  --primary: #3b2f8f;
+  --accent: #ff6b5b;
+  --bg: #f5f4fb;
+  --text: #1b1740;
+  --muted: #77758f;
+  --line: #e5e5f3;
+  --sidebar: #3b2f8f;
+  --white: #ffffff;
+  --shadow: 0 5px 20px rgba(42, 31, 101, 0.045);
+}
+
+/* Sidebar */
+.sidebar {
+  background: #3b2f8f;
+}
+
+/* Navigation */
+.nav-item {
+  color: #d5d2ed;
+  border-radius: 7px;
+  transition: background 0.15s, color 0.15s;
+}
+
+/* Navigation hover - same as client */
+.nav-item:hover {
+  background: #ffffff12;
+  color: #ffffff;
+}
+
+/* Active navigation - same as client */
+.nav-item.active {
+  background: #ffffff1b;
+  color: #ffffff;
+  box-shadow: none;
+  font-weight: 800;
+}
+
+/* Navigation icons */
+.nav-icon {
+  color: #c4c0e9;
+}
+
+.nav-item.active .nav-icon {
+  color: #ffffff;
+}
+
+/* Navigation count */
+.nav-count {
+  background: #ffffff20;
+  color: #ffffff;
+  border-radius: 6px;
+}
+
+/* Support card */
+.support-card {
+  border: 1px solid #ffffff28;
+  background: #ffffff08;
+  border-radius: 10px;
+}
+
+.support-card button {
+  background: #ffffff;
+  color: #3b2f8f;
+  border: 0;
+  border-radius: 6px;
+}
+
+/* Main page background */
+body {
+  background: #f5f4fb;
+  color: #1b1740;
+}
+
+/* Table row hover */
+tbody tr:hover {
+  background: #faf9ff;
+}
+
+/* Buttons */
+.button-primary {
+  background: #3b2f8f;
+  color: #ffffff;
+}
+
+.button-primary:hover {
+  background: #302572;
+}
+
+/* Card styling */
+.panel,
+.stat-card {
+  border-color: #e5e5f3;
+  box-shadow: 0 5px 20px rgba(42, 31, 101, 0.045);
+}

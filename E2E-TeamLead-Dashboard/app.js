@@ -1,4 +1,3 @@
-
 const STORAGE_KEY = "e2e_team_lead_dashboard";
 
 // Demo data
@@ -95,12 +94,14 @@ const defaultData = {
             id: 1,
             title: "Add payment gateway",
             client: "ABC Technologies",
+            date: "2026-11-01",
             status: "Pending"
         },
         {
             id: 2,
             title: "Add employee reports",
             client: "Global Solutions",
+            date: "2026-11-02",
             status: "Under Review"
         }
     ],
@@ -111,6 +112,7 @@ const defaultData = {
             title: "Mobile Application Development",
             client: "Smart Retail",
             amount: 75000,
+            submittedDate: "2026-10-29",
             status: "Pending"
         },
         {
@@ -118,6 +120,7 @@ const defaultData = {
             title: "Website Maintenance",
             client: "ABC Technologies",
             amount: 25000,
+            submittedDate: "2026-10-25",
             status: "Approved"
         }
     ],
@@ -365,7 +368,6 @@ function renderProjects() {
         }
     }
 }
-
 // ============================================
 // TASKS
 // ============================================
@@ -383,7 +385,7 @@ function renderTasks() {
             task.project.toLowerCase().includes(search) ||
             task.developer.toLowerCase().includes(search);
 
-        const matchesFilter = !filter || task.status === filter;
+        const matchesFilter = !filter || filter === "All" || task.status === filter;
 
         return matchesSearch && matchesFilter;
     });
@@ -464,17 +466,54 @@ function createTask(event) {
 
 function viewTask(taskId) {
     const task = data.tasks.find(item => item.id === taskId);
-
     if (!task) return;
 
-    alert(
-        `Task: ${task.title}\n` +
-        `Project: ${task.project}\n` +
-        `Developer: ${task.developer}\n` +
-        `Status: ${task.status}\n` +
-        `Deadline: ${formatDate(task.deadline)}\n\n` +
-        `Description: ${task.description || "No description"}`
-    );
+    const details = getElement("taskDetailsContent");
+    if (!details) return;
+
+    const detailRow = (label, value) => `
+        <div class="task-detail-row">
+            <span>${escapeHTML(label)}</span>
+            <strong>${escapeHTML(value || "Not provided")}</strong>
+        </div>
+    `;
+
+    details.innerHTML = `
+        <div class="task-detail-heading">
+            <div>
+                <span class="task-detail-id">TASK #${escapeHTML(task.id)}</span>
+                <h3>${escapeHTML(task.title)}</h3>
+            </div>
+            <span class="status ${getStatusClass(task.status)}">${escapeHTML(task.status)}</span>
+        </div>
+        <div class="task-detail-grid">
+            ${detailRow("Project", task.project)}
+            ${detailRow("Assigned developer", task.developer)}
+            ${detailRow("Deadline", formatDate(task.deadline))}
+            ${detailRow("Priority", task.priority || "Not set")}
+            ${detailRow("Start date", task.startDate ? formatDate(task.startDate) : "Not provided")}
+            ${detailRow("Created on", task.createdAt ? formatDate(task.createdAt) : "Not recorded")}
+        </div>
+        <div class="task-detail-description">
+            <h4>Task Description</h4>
+            <p>${escapeHTML(task.description || "No description provided.")}</p>
+        </div>
+        ${task.submissionDetails || task.submissionLink ? `
+            <div class="task-detail-description">
+                <h4>Submission Details</h4>
+                <p>${escapeHTML(task.submissionDetails || "No submission notes provided.")}</p>
+                ${task.submissionLink ? `<p><a href="${escapeHTML(task.submissionLink)}" target="_blank" rel="noopener noreferrer">Open submitted work</a></p>` : ""}
+            </div>
+        ` : ""}
+        ${task.reviewComment || task.reviewComments ? `
+            <div class="task-detail-description">
+                <h4>Review Comments</h4>
+                <p>${escapeHTML(task.reviewComment || task.reviewComments)}</p>
+            </div>
+        ` : ""}
+    `;
+
+    getElement("taskDetailsModal")?.classList.add("show");
 }
 
 // ============================================
@@ -532,49 +571,52 @@ function renderTeam() {
     const table = getElement("teamTable");
     const dashboardTeam = getElement("dashboardTeam");
 
-    const teamHTML = data.team.map(member => {
-        const assignedTasks = data.tasks.filter(
-            task => task.developer === member.name &&
-                task.status !== "Approved"
-        ).length;
+    const rows = data.team.map(member => {
+        const memberTasks = data.tasks.filter(task => task.developer === member.name);
+        const activeTasks = memberTasks.filter(task => task.status !== "Approved").length;
+        const approvedTasks = memberTasks.filter(task => task.status === "Approved").length;
 
         return `
             <tr>
-                <td>${escapeHTML(member.name)}</td>
+                <td><strong>${escapeHTML(member.name)}</strong><small class="table-subtext">${escapeHTML(member.email)}</small></td>
                 <td>${escapeHTML(member.role)}</td>
-                <td>${escapeHTML(member.email)}</td>
-                <td>${assignedTasks}</td>
+                <td>${activeTasks}</td>
+                <td>${approvedTasks}</td>
+                <td><span class="status active">Active</span></td>
             </tr>
         `;
     }).join("");
 
     if (table) {
-        table.innerHTML = teamHTML ||
-            `<tr><td colspan="4">No team members found.</td></tr>`;
+        table.innerHTML = rows || `<tr><td colspan="5" class="empty-cell">No team members found.</td></tr>`;
     }
 
     if (dashboardTeam) {
-        dashboardTeam.innerHTML = teamHTML ||
-            `<tr><td colspan="4">No team members found.</td></tr>`;
+        dashboardTeam.innerHTML = data.team.length ? data.team.map(member => {
+            const activeTasks = data.tasks.filter(task => task.developer === member.name && task.status !== "Approved").length;
+            const approvedTasks = data.tasks.filter(task => task.developer === member.name && task.status === "Approved").length;
+            const initials = member.name.split(/\s+/).map(part => part[0]).slice(0, 2).join("").toUpperCase();
+            return `
+                <div class="team-workload-item">
+                    <div class="member-avatar">${escapeHTML(initials)}</div>
+                    <div class="team-workload-copy">
+                        <strong>${escapeHTML(member.name)}</strong>
+                        <span>${escapeHTML(member.role)}</span>
+                        <small>${activeTasks} active · ${approvedTasks} approved</small>
+                    </div>
+                </div>
+            `;
+        }).join("") : `<p class="empty">No team members available.</p>`;
     }
 
     const developerSelect = getElement("taskDeveloper");
-
     if (developerSelect) {
         const currentValue = developerSelect.value;
-
         developerSelect.innerHTML = `
             <option value="">Select Developer</option>
-            ${data.team.map(member => `
-                <option value="${escapeHTML(member.name)}">
-                    ${escapeHTML(member.name)}
-                </option>
-            `).join("")}
+            ${data.team.map(member => `<option value="${escapeHTML(member.name)}">${escapeHTML(member.name)}</option>`).join("")}
         `;
-
-        if (data.team.some(member => member.name === currentValue)) {
-            developerSelect.value = currentValue;
-        }
+        if (data.team.some(member => member.name === currentValue)) developerSelect.value = currentValue;
     }
 }
 
@@ -630,27 +672,17 @@ function renderRequests() {
     table.innerHTML = data.requests.length
         ? data.requests.map(request => `
             <tr>
-                <td>${escapeHTML(request.title)}</td>
+                <td><strong>${escapeHTML(request.title)}</strong></td>
                 <td>${escapeHTML(request.client)}</td>
-                <td>
-                    <span class="status ${getStatusClass(request.status)}">
-                        ${escapeHTML(request.status)}
-                    </span>
-                </td>
-                <td>
-                    <button class="btn btn-primary"
-                        onclick="updateRequest(${request.id}, 'Under Review')">
-                        Review
-                    </button>
-
-                    <button class="btn btn-secondary"
-                        onclick="updateRequest(${request.id}, 'Approved')">
-                        Approve
-                    </button>
+                <td><span class="status ${getStatusClass(request.status)}">${escapeHTML(request.status)}</span></td>
+                <td>${formatDate(request.date || request.createdAt)}</td>
+                <td class="action-cell">
+                    <button class="secondary-btn table-action" onclick="updateRequest(${request.id}, 'Under Review')">Review</button>
+                    <button class="primary-btn table-action" onclick="updateRequest(${request.id}, 'Approved')">Approve</button>
                 </td>
             </tr>
         `).join("")
-        : `<tr><td colspan="4">No requests available.</td></tr>`;
+        : `<tr><td colspan="5" class="empty-cell">No requests available.</td></tr>`;
 }
 
 function updateRequest(requestId, status) {
@@ -678,17 +710,14 @@ function renderQuotations() {
     table.innerHTML = data.quotations.length
         ? data.quotations.map(quotation => `
             <tr>
-                <td>${escapeHTML(quotation.title)}</td>
+                <td><strong>${escapeHTML(quotation.title)}</strong></td>
                 <td>${escapeHTML(quotation.client)}</td>
                 <td>${formatCurrency(quotation.amount)}</td>
-                <td>
-                    <span class="status ${getStatusClass(quotation.status)}">
-                        ${escapeHTML(quotation.status)}
-                    </span>
-                </td>
+                <td>${formatDate(quotation.submittedDate || quotation.date)}</td>
+                <td><span class="status ${getStatusClass(quotation.status)}">${escapeHTML(quotation.status)}</span></td>
             </tr>
         `).join("")
-        : `<tr><td colspan="4">No quotations available.</td></tr>`;
+        : `<tr><td colspan="5" class="empty-cell">No quotations available.</td></tr>`;
 }
 
 // ============================================
@@ -924,7 +953,7 @@ function setupModalClosing() {
 // ============================================
 
 function globalSearch() {
-    const searchInput = getElement("globalSearchInput");
+    const searchInput = getElement("globalSearch");
 
     if (!searchInput) {
         alert("Search is not available in this HTML layout.");
@@ -933,17 +962,17 @@ function globalSearch() {
 
     const query = searchInput.value.trim().toLowerCase();
 
-    if (!query) {
-        alert("Enter something to search.");
-        return;
-    }
+    if (!query) return;
 
     const task = data.tasks.find(item =>
-        item.title.toLowerCase().includes(query)
+        item.title.toLowerCase().includes(query) ||
+        item.project.toLowerCase().includes(query) ||
+        item.developer.toLowerCase().includes(query)
     );
 
     const project = data.projects.find(item =>
-        item.name.toLowerCase().includes(query)
+        item.name.toLowerCase().includes(query) ||
+        item.client.toLowerCase().includes(query)
     );
 
     if (task) {
@@ -1066,7 +1095,7 @@ function renderAll() {
     renderReports();
     renderMessages();
     renderActivities();
-    renderupdateNotificationIndicator();
+    updateNotificationIndicator();
 }
 
 // ============================================
