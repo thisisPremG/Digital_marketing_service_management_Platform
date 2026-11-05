@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>E2E | Admin Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#">
+        <b>E</b>
+        E2E
+      </a>
+      <small class="nav-label">WORKSPACE</small>
+      <nav id="nav">
+        <button class="active" data-page="dashboard">▦　Dashboard</button>
+        <button data-page="users">♙　Users &amp; Roles</button>
+        <button data-page="services">◇　Services</button>
+        <button data-page="requests">▤　Requests</button>
+        <button data-page="quotations">◈　Quotations</button>
+        <button data-page="projects">▣　Projects</button>
+        <button data-page="payments">₹　Payments</button>
+        <button data-page="invoices">▧　Invoices</button>
+        <button data-page="reports">▥　Reports</button>
+        <button data-page="settings">⚙　Settings</button>
+      </nav>
+      <div class="side-bottom">
+        <div class="support">
+          <b>Need help?</b>
+          <p>Our team is here for you.</p>
+          <button id="support">Contact support</button>
+        </div>
+        <small>🟢 System Online</small>
+      </div>
+    </aside>
+    <main>
+      <header class="topbar">
+        <button class="mobile" id="menu">☰</button>
+        <input id="globalSearch" placeholder="⌕  Search anything..." />
+        <div class="top-right">
+          <button id="notify">
+            ♧
+            <i></i>
+          </button>
+          <button id="profile">
+            <span class="avatar">PN</span>
+            <span>
+              <b>Priya Nair</b>
+              <small>Administrator</small>
+            </span>
+            ⌄
+          </button>
+          <div id="profileMenu" class="profile-menu hidden">
+            <button id="reset">Reset demo data</button>
+          </div>
+        </div>
+      </header>
+      <section class="content">
+        <div class="page-head">
+          <div>
+            <small class="eyebrow">E2E WORKSPACE / ADMIN</small>
+            <h1 id="title">Dashboard overview</h1>
+            <p id="subtitle">Welcome back, Priya. Here's what's happening across your platform.</p>
+          </div>
+          <div class="head-actions">
+            <span id="today" class="date"></span>
+            <button id="primary" class="primary">＋ New user</button>
+          </div>
+        </div>
+        <div id="view"></div>
+        <footer>
+          © 2026 E2E Platform
+          <span>Admin workspace · Demo environment</span>
+        </footer>
+      </section>
+    </main>
+    <div id="modal" class="overlay hidden">
+      <section class="dialog">
+        <div class="dialog-head">
+          <div>
+            <small class="eyebrow">E2E WORKSPACE</small>
+            <h2 id="modalTitle">Create record</h2>
+          </div>
+          <button id="close" class="x">×</button>
+        </div>
+        <form id="form">
+          <div id="fields" class="fields"></div>
+          <div class="modal-actions">
+            <button type="button" id="cancel" class="light">Cancel</button>
+            <button class="primary">Save changes</button>
+          </div>
+        </form>
+      </section>
+    </div>
+    <div id="toasts" class="toasts"></div>
+    <script src="app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="E2E Manager Dashboard demo application">
+  <title>E2E Manager Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#" aria-label="E2E dashboard home">
+        <span class="brand-mark">E</span><span>E2E<span class="brand-light">.works</span></span>
+      </a>
+      <div class="workspace-label">WORKSPACE</div>
+      <nav class="main-nav" aria-label="Main navigation">
+        <button class="nav-item active" data-page="dashboard"><span class="nav-icon">▦</span>Dashboard</button>
+        <button class="nav-item" data-page="requests"><span class="nav-icon">↗</span>Requests <span class="nav-count" id="requestNavCount">8</span></button>
+        <button class="nav-item" data-page="quotations"><span class="nav-icon">▤</span>Quotations</button>
+        <button class="nav-item" data-page="projects"><span class="nav-icon">◫</span>Projects</button>
+        <button class="nav-item" data-page="payments"><span class="nav-icon">₹</span>Payments</button>
+        <button class="nav-item" data-page="invoices"><span class="nav-icon">▧</span>Invoices</button>
+        <button class="nav-item" data-page="clients"><span class="nav-icon">♙</span>Clients</button>
+        <button class="nav-item" data-page="reports"><span class="nav-icon">▥</span>Reports</button>
+        <button class="nav-item" data-page="team"><span class="nav-icon">♧</span>Team</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="support-card">
+          <div class="support-card-head"><span class="support-icon">?</span><span class="support-online">ONLINE</span></div>
+          <strong>Need a hand?</strong>
+          <p>Get help with requests, projects and your workspace.</p>
+          <button class="support-link" type="button" data-action="open-help">Help &amp; Support <span>↗</span></button>
+        </div>
+        <div class="system-status"><span class="online-dot"></span><span>All systems operational</span></div>
+        <button class="profile-mini profile-trigger" type="button" data-action="open-profile" aria-label="Open manager profile">
+          <div class="avatar avatar-purple manager-avatar">AK</div>
+          <span class="profile-mini-copy"><strong class="manager-name">Arun Kumar</strong><small>Manager</small></span>
+          <span class="more-btn" aria-hidden="true">•••</span>
+        </button>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <button class="mobile-menu" id="mobileMenu" aria-label="Toggle menu">☰</button>
+        <div class="breadcrumb"><span>Workspace</span><b>/</b><strong id="pageTitle">Dashboard</strong></div>
+        <div class="topbar-actions">
+          <label class="global-search"><span>⌕</span><input id="globalSearch" type="search" placeholder="Search anything..." aria-label="Search anything"><kbd>⌘ K</kbd></label>
+          <button class="top-help-btn" type="button" data-action="open-help"><span>?</span> Help</button>
+          <button class="icon-btn notification-btn" id="notificationBtn" aria-label="Notifications">♧<i></i></button>
+          <button class="top-profile profile-trigger" type="button" data-action="open-profile" aria-label="Open manager profile"><div class="avatar avatar-purple manager-avatar">AK</div><span class="top-profile-copy"><strong class="manager-name">Arun Kumar</strong><small>Manager</small></span><span class="chevron">⌄</span></button>
+        </div>
+      </header>
+
+      <div class="content-wrap">
+        <section class="page-section active" id="page-dashboard">
+          <div class="welcome-row">
+            <div><div class="eyebrow">MONDAY, 03 NOVEMBER 2026</div><h1>Good afternoon, Arun <span class="wave">✦</span></h1><p>Here's what's happening across your workspace today.</p></div>
+            <button class="btn btn-primary" data-action="new-request">＋ New request</button>
+          </div>
+          <div class="stats-grid">
+            <article class="stat-card"><div class="stat-top"><span>New Requests</span><span class="stat-icon coral">↗</span></div><div class="stat-number" id="statRequests">8</div><div class="stat-foot"><span class="trend-up">↑ 12.5%</span> <span>vs. last month</span></div><div class="mini-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></article>
+            <article class="stat-card"><div class="stat-top"><span>Quotations Pending</span><span class="stat-icon purple">▤</span></div><div class="stat-number" id="statQuotes">3</div><div class="stat-foot"><span class="trend-neutral">Needs attention</span></div><div class="mini-bars purple-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></article>
+            <article class="stat-card"><div class="stat-top"><span>Projects in Progress</span><span class="stat-icon blue">◫</span></div><div class="stat-number" id="statProjects">5</div><div class="stat-foot"><span class="trend-up">↑ 2 projects</span> <span>this month</span></div><div class="mini-bars blue-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></article>
+            <article class="stat-card"><div class="stat-top"><span>Pending Payments</span><span class="stat-icon amber">₹</span></div><div class="stat-number" id="statPayments">2</div><div class="stat-foot"><span class="trend-neutral">₹ 48,500 outstanding</span></div><div class="mini-bars amber-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></article>
+          </div>
+
+          <div class="dashboard-grid">
+            <section class="panel pending-panel">
+              <div class="panel-heading"><div><h2>Pending Actions</h2><p>Items that need your attention</p></div><span class="soft-count" id="pendingCount">5 actions</span></div>
+              <div id="pendingActions" class="action-list"></div>
+            </section>
+            <section class="panel deadlines-panel">
+              <div class="panel-heading"><div><h2>Upcoming Deadlines</h2><p>Keep track of what's due next</p></div><button class="text-btn" data-page-link="projects">View all ↗</button></div>
+              <div id="dashboardDeadlines" class="deadline-list"></div>
+            </section>
+            <section class="panel recent-panel">
+              <div class="panel-heading"><div><h2>Recent Requests</h2><p>Latest client submissions</p></div><button class="text-btn" data-page-link="requests">View all ↗</button></div>
+              <div class="table-wrap"><table><thead><tr><th>REQUEST</th><th>CLIENT</th><th>SERVICE</th><th>STATUS</th><th></th></tr></thead><tbody id="recentRequests"></tbody></table></div>
+            </section>
+            <section class="panel overview-panel">
+              <div class="panel-heading"><div><h2>Project Overview</h2><p>Current delivery snapshot</p></div><button class="text-btn" data-page-link="reports">Reports ↗</button></div>
+              <div class="overview-number"><strong id="overviewCompletion">68%</strong><span>Average completion</span></div>
+              <div class="progress-track large"><span style="width:68%" id="overviewProgress"></span></div>
+              <div class="overview-legend"><span><i class="legend-dot purple-dot"></i>On track <b id="onTrackCount">3</b></span><span><i class="legend-dot coral-dot"></i>At risk <b id="atRiskCount">2</b></span></div>
+              <div class="overview-note"><span>↗</span> Delivery is moving in the right direction.</div>
+            </section>
+          </div>
+        </section>
+
+        <section class="page-section" id="page-requests">
+          <div class="page-heading"><div><div class="eyebrow">CLIENT INTAKE</div><h1>Client Requests</h1><p>Review incoming requirements and decide the next step.</p></div><button class="btn btn-primary" data-action="new-request">＋ Add demo request</button></div>
+          <div class="toolbar"><label class="search-field">⌕ <input id="requestSearch" placeholder="Search requests..."></label><select id="requestStatusFilter"><option value="all">All statuses</option><option>New</option><option>Under Review</option><option>Clarification</option><option>Accepted</option><option>Rejected</option></select><select id="requestServiceFilter"><option value="all">All services</option><option>Business Website</option><option>E-commerce Store</option><option>Web Application</option><option>Landing Page</option><option>Maintenance and Support</option></select></div>
+          <div class="panel table-panel"><div class="table-wrap"><table><thead><tr><th>REQUEST ID</th><th>CLIENT</th><th>SERVICE</th><th>SUBMITTED</th><th>TIMELINE</th><th>STATUS</th><th></th></tr></thead><tbody id="requestsTable"></tbody></table></div></div>
+        </section>
+zz
+        <section class="page-section" id="page-quotations">
+          <div class="page-heading"><div><div class="eyebrow">COMMERCIALS</div><h1>Quotations</h1><p>Build, review and share client quotations.</p></div><button class="btn btn-primary" data-action="new-quotation">＋ Create quotation</button></div>
+          <div class="stats-strip"><div><span>Total quotations</span><strong id="quoteTotal">6</strong></div><div><span>Awaiting approval</span><strong id="quoteAwaiting">3</strong></div><div><span>Sent to clients</span><strong id="quoteSent">2</strong></div><div><span>Accepted value</span><strong id="quoteValue">₹ 1,70,000</strong></div></div>
+          <div class="toolbar"><label class="search-field">⌕ <input id="quoteSearch" placeholder="Search quotations..."></label><select id="quoteStatusFilter"><option value="all">All statuses</option><option>Draft</option><option>Pending Approval</option><option>Sent</option><option>Accepted</option><option>Rejected</option></select></div>
+          <div class="panel table-panel"><div class="table-wrap"><table><thead><tr><th>QUOTE ID</th><th>CLIENT / REQUEST</th><th>SERVICE</th><th>AMOUNT</th><th>VALID UNTIL</th><th>STATUS</th><th></th></tr></thead><tbody id="quotationsTable"></tbody></table></div></div>
+        </section>
+
+        <section class="page-section" id="page-projects">
+          <div class="page-heading"><div><div class="eyebrow">DELIVERY</div><h1>Projects</h1><p>Track delivery, ownership, milestones and progress.</p></div><button class="btn btn-primary" data-action="new-project">＋ Create project</button></div>
+          <div class="toolbar"><label class="search-field">⌕ <input id="projectSearch" placeholder="Search projects..."></label><select id="projectStatusFilter"><option value="all">All statuses</option><option>Planning</option><option>In Progress</option><option>Client Review</option><option>On Hold</option><option>Completed</option></select><span id="projectCount" class="project-count" aria-live="polite"></span></div>
+          <div class="project-grid" id="projectGrid"></div>
+        </section>
+
+        <section class="page-section" id="page-team">
+          <div class="page-heading"><div><div class="eyebrow">PEOPLE & CAPACITY</div><h1>Team Coordination</h1><p>Review availability and workload before assigning ownership.</p></div><button class="btn btn-primary" data-action="new-assignment">＋ Assign team lead</button></div>
+          <div class="team-summary" id="teamSummary"></div>
+          <div class="team-grid" id="teamGrid"></div>
+          <div class="panel table-panel"><div class="panel-heading"><div><h2>Project allocations</h2><p>Team ownership across active work</p></div></div><div class="table-wrap"><table><thead><tr><th>PROJECT</th><th>TEAM LEAD</th><th>DEVELOPERS</th><th>WORKLOAD</th><th>STATUS</th><th></th></tr></thead><tbody id="allocationTable"></tbody></table></div></div>
+        </section>
+
+        <section class="page-section" id="page-clients">
+          <div class="page-heading"><div><div class="eyebrow">RELATIONSHIPS</div><h1>Clients</h1><p>Client directory with request and project history.</p></div></div>
+          <div class="toolbar"><label class="search-field">⌕ <input id="clientSearch" placeholder="Search clients..."></label></div>
+          <div class="client-grid" id="clientGrid"></div>
+        </section>
+
+        <section class="page-section" id="page-payments">
+          <div class="page-heading"><div><div class="eyebrow">ACCOUNTS</div><h1>Payments</h1><p>Monitor payment progress. Verification requires a trusted provider or backend.</p></div></div>
+          <div class="stats-strip"><div><span>Outstanding</span><strong>₹ 48,500</strong></div><div><span>Received (demo records)</span><strong>₹ 2,10,000</strong></div><div><span>Awaiting confirmation</span><strong id="paymentPendingCount">2</strong></div><div><span>Verified by provider</span><strong>0</strong></div></div>
+          <div class="panel table-panel"><div class="table-wrap"><table><thead><tr><th>PAYMENT ID</th><th>CLIENT</th><th>PROJECT</th><th>AMOUNT</th><th>DUE DATE</th><th>STATUS</th></tr></thead><tbody id="paymentsTable"></tbody></table></div></div>
+          <p class="notice"><span>ⓘ</span> Demo mode does not verify or settle payments. Payment status can only be confirmed by a production backend or payment-provider webhook.</p>
+        </section>
+
+        <section class="page-section" id="page-invoices">
+          <div class="page-heading"><div><div class="eyebrow">ACCOUNTS</div><h1>Invoices</h1><p>View invoice records linked to client projects.</p></div><button class="btn btn-secondary" data-action="new-invoice">＋ Create demo invoice</button></div>
+          <div class="panel table-panel"><div class="table-wrap"><table><thead><tr><th>INVOICE</th><th>CLIENT</th><th>PROJECT</th><th>ISSUED</th><th>DUE</th><th>AMOUNT</th><th>STATUS</th></tr></thead><tbody id="invoicesTable"></tbody></table></div></div>
+        </section>
+
+        <section class="page-section" id="page-reports">
+          <div class="page-heading"><div><div class="eyebrow">INSIGHTS</div><h1>Reports & Analytics</h1><p>A live snapshot calculated from the current demo workspace.</p></div><button class="btn btn-secondary" id="exportReport">↓ Export CSV</button></div>
+          <div class="report-grid" id="reportMetrics"></div>
+          <div class="panel report-panel"><div class="panel-heading"><div><h2>Team workload</h2><p>Active project allocation by team lead</p></div></div><div id="workloadReport"></div></div>
+          <div class="panel report-panel"><div class="panel-heading"><div><h2>Request conversion</h2><p>Request status distribution</p></div></div><div id="conversionReport"></div></div>
+        </section>
+      </div>
+      <footer class="app-footer"><span>© 2026 E2E.works</span><span>Manager workspace <i></i> Demo environment</span></footer>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="modalBackdrop" aria-hidden="true">
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-header"><div><span class="eyebrow" id="modalEyebrow">WORKSPACE</span><h2 id="modalTitle">Details</h2></div><button class="modal-close" id="modalClose" aria-label="Close">×</button></div>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-footer" id="modalFooter"></div>
+    </section>
+  </div>
+  <div class="toast-region" id="toastRegion" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
